@@ -25,7 +25,7 @@ MonoBehaviour:
   m_MinSize: {x: 710, y: 613}
   m_MaxSize: {x: 18005, y: 18063}
   vertical: 0
-  controlID: 501
+  controlID: 13482
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_MinSize: {x: 201, y: 442}
   m_MaxSize: {x: 4001, y: 8042}
   vertical: 1
-  controlID: 400
+  controlID: 13483
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -205,9 +205,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 341.84308, y: -41.243034, z: -56.063908}
+    m_Target: {x: 363.0886, y: 239.02667, z: -14.741342}
     speed: 2
-    m_Value: {x: 341.84308, y: -41.243034, z: -56.063908}
+    m_Value: {x: 363.0886, y: 239.02667, z: -14.741342}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -258,9 +258,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 389.88416
+    m_Target: 159.02292
     speed: 2
-    m_Value: 389.88416
+    m_Value: 159.02292
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -465,7 +465,7 @@ MonoBehaviour:
   m_MinSize: {x: 232, y: 613}
   m_MaxSize: {x: 10002, y: 18063}
   vertical: 1
-  controlID: 469
+  controlID: 13432
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -485,8 +485,8 @@ MonoBehaviour:
     y: 0
     width: 284
     height: 271.2
-  m_MinSize: {x: 230, y: 250}
-  m_MaxSize: {x: 10000, y: 10000}
+  m_MinSize: {x: 232, y: 271}
+  m_MaxSize: {x: 10002, y: 10021}
   m_ActualView: {fileID: 12}
   m_Panes:
   - {fileID: 12}
@@ -536,14 +536,14 @@ MonoBehaviour:
   m_StartGridSize: 64
   m_LastFolders: []
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\30698\Desktop\Stress
+  m_LastProjectPath: C:\Users\30698\Desktop\New folder\Stress-2d-game\Stress
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 70360000
     m_LastClickedID: 13936
-    m_ExpandedIDs: ffffffff00000000d6380000de38000020390000223900002439000026390000
+    m_ExpandedIDs: ffffffff00000000d6380000de3800002039000022390000243900002639000040390000be390000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -568,10 +568,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 158.79999}
-    m_SelectedIDs: 78320000
-    m_LastClickedID: 12920
-    m_ExpandedIDs: ffffffff00000000d6380000de38000020390000223900002439000026390000
+    scrollPos: {x: 0, y: 462.8}
+    m_SelectedIDs: ea9effff
+    m_LastClickedID: 0
+    m_ExpandedIDs: ffffffff00000000d6380000de3800002039000022390000243900002639000040390000be390000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -587,7 +587,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 11}
+      m_ClientGUIView: {fileID: 17}
     m_SearchString: 
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
@@ -596,8 +596,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 78320000
-    m_LastClickedInstanceID: 12920
+    m_SelectedInstanceIDs: ea9effff
+    m_LastClickedInstanceID: -24854
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: 
     m_RenameOverlay:
@@ -680,10 +680,10 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 0}
+      scrollPos: {x: 0, y: 109.2}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 60fbffff
+      m_ExpandedIDs: ea9effffec9effff1ad7ffff92e0ffff60fbffff16380000b6420000c6420000d0420000da420000104300004a4c0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -815,7 +815,7 @@ MonoBehaviour:
     m_CachedPref: -305
     m_ControlHash: 1412526313
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: 12920
+  m_LastInspectedObjectInstanceID: -24854
   m_LastVerticalScrollValue: 0
   m_AssetGUID: 
   m_InstanceID: 0

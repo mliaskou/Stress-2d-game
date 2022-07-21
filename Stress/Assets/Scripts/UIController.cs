@@ -12,6 +12,8 @@ public class UIController : MonoBehaviour
     float roundedDistance;
     [SerializeField] Text weapons;
     [SerializeField] GameObject reloadScenePanel;
+
+
     public void ShowGameOverScreen()
     {
         GameOverScreen.SetActive(true);
@@ -33,5 +35,10 @@ public class UIController : MonoBehaviour
     public void GameQuit()
     {
         UnityEditor.EditorApplication.isPlaying = false;
+    }
+
+    public void ShowWinScreen()
+    {
+
     }
 }

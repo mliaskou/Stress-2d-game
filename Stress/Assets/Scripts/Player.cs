@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     bool isOnTheGround;
     public UIController uiController;
     public float distanceTravelled;
-
+    public PlatformCreator platformCreator;
    
     private void Start()
     {
@@ -164,5 +164,13 @@ public class Player : MonoBehaviour
         powerText.text = power.ToString();
         lifeText.text = life.ToString();
 
+    }
+
+    public void PlayerHasWon()
+    {
+        if(life > 0 && distanceTravelled >= 80)
+        {
+            uiController.ShowWinScreen();
+        }
     }
 }

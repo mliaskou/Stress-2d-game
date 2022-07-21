@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class PlatformCreator : MonoBehaviour
@@ -8,22 +9,36 @@ public class PlatformCreator : MonoBehaviour
     public Transform referencePoint;
     [SerializeField] GameObject lastCreatedPlatform;
     float lastPlatformWidth;
-
-
+    [SerializeField] Platform platform;
+    [SerializeField] Text timeText;
+    public float timeLeft =3f;
     
+
 
     // Update is called once per frame
     void Update()
     {
-        if(lastCreatedPlatform.transform.position.x < referencePoint.position.x )
-        {
-            float spaceBetweenPlatforms = Random.Range(1,3);
-            Vector2 targetCreationPoint = new Vector2(referencePoint.transform.position.x + spaceBetweenPlatforms+ lastPlatformWidth, 0);
-            int randomPlatform = Random.Range(0, platformPrefab.Length);
-            lastCreatedPlatform = Instantiate(platformPrefab[randomPlatform], targetCreationPoint, Quaternion.identity);
-            BoxCollider2D collider = lastCreatedPlatform.GetComponent<BoxCollider2D>();
-            lastPlatformWidth = collider.bounds.size.x;
-        }
+        timeLeft -= Time.deltaTime; // Set the timer
+        timeLeft = Mathf.Clamp(timeLeft, 0, 3);
+        timeText.text = (timeLeft).ToString("0");
         
+        if(timeLeft<=0)
+        {
+            timeText.enabled = false;
+            if (lastCreatedPlatform.transform.position.x < referencePoint.position.x)
+            {
+                float spaceBetweenPlatforms = Random.Range(1, 3);
+                Vector2 targetCreationPoint = new Vector2(referencePoint.transform.position.x + spaceBetweenPlatforms + lastPlatformWidth, 0);
+                int randomPlatform = Random.Range(0, platformPrefab.Length);
+                lastCreatedPlatform = Instantiate(platformPrefab[randomPlatform], targetCreationPoint, Quaternion.identity);
+                BoxCollider2D collider = lastCreatedPlatform.GetComponent<BoxCollider2D>();
+                lastPlatformWidth = collider.bounds.size.x;
+            }
+            
+
+            
+
+        }
+
     }
 }
