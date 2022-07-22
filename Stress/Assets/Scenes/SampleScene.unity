@@ -345,8 +345,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -166, y: -60}
-  m_SizeDelta: {x: 439.2682, y: 116.24458}
+  m_AnchoredPosition: {x: -139, y: -60}
+  m_SizeDelta: {x: 83.30325, y: 116.24458}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &268002907
 MonoBehaviour:
@@ -449,10 +449,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -802,9 +802,9 @@ MonoBehaviour:
   - {fileID: 2245745720833302991, guid: 195bcd18bb458984d8cb3316a8f67d9f, type: 3}
   referencePoint: {fileID: 615068290}
   lastCreatedPlatform: {fileID: 1627846769856600398, guid: 5855d075971feb94698ccd7594409e26, type: 3}
-  platform: {fileID: 0}
   timeText: {fileID: 810554899}
   timeLeft: 3
+  player: {fileID: 1256884097}
 --- !u!61 &615068288
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1386,8 +1386,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 31}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -1.9999771, y: 45.700005}
+  m_SizeDelta: {x: 261.25854, y: 48.985977}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &775282277
 MonoBehaviour:
@@ -1635,8 +1635,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 21, y: 0}
-  m_SizeDelta: {x: 242.70142, y: 168.92352}
+  m_AnchoredPosition: {x: 11, y: -0.0000076294}
+  m_SizeDelta: {x: 579.04156, y: 299.63397}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &963194225
 GameObject:
@@ -1733,7 +1733,7 @@ GameObject:
   - component: {fileID: 994215669}
   - component: {fileID: 994215668}
   m_Layer: 5
-  m_Name: WinScreeen
+  m_Name: WinScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1980,6 +1980,11 @@ MonoBehaviour:
   player: {fileID: 1256884097}
   weapons: {fileID: 111186331}
   reloadScenePanel: {fileID: 1585266432}
+  winScenePanel: {fileID: 994215666}
+  distanceTravelledWin: {fileID: 1285422177}
+  weaponsTextWin: {fileID: 1658976577}
+  livesWin: {fileID: 268002907}
+  platform: {fileID: 0}
 --- !u!4 &1247762975
 Transform:
   m_ObjectHideFlags: 0
@@ -2153,6 +2158,7 @@ MonoBehaviour:
   uiController: {fileID: 1247762974}
   distanceTravelled: 0
   platformCreator: {fileID: 0}
+  anim: {fileID: 1256884098}
 --- !u!95 &1256884098
 Animator:
   serializedVersion: 3
@@ -2206,8 +2212,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 171.3, y: 0}
-  m_SizeDelta: {x: 439.2682, y: 116.24458}
+  m_AnchoredPosition: {x: 173, y: 0}
+  m_SizeDelta: {x: 77.94928, y: 116.24458}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1285422177
 MonoBehaviour:
@@ -3004,7 +3010,7 @@ GameObject:
   - component: {fileID: 1567109496}
   - component: {fileID: 1567109495}
   m_Layer: 5
-  m_Name: Weapons (1)
+  m_Name: WeaponsText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3328,8 +3334,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -38}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -2, y: -67}
+  m_SizeDelta: {x: 261.25854, y: 48.985977}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1693423989
 MonoBehaviour:
@@ -3483,10 +3489,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0

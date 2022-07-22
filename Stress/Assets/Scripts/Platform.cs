@@ -12,6 +12,7 @@ public class Platform : MonoBehaviour
     {
       
             transform.position += new Vector3(-speed, 0, 0) * Time.deltaTime;
+        
             if (transform.position.x < leftLimit)
             {
 

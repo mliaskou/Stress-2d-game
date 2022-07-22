@@ -9,10 +9,9 @@ public class PlatformCreator : MonoBehaviour
     public Transform referencePoint;
     [SerializeField] GameObject lastCreatedPlatform;
     float lastPlatformWidth;
-    [SerializeField] Platform platform;
     [SerializeField] Text timeText;
     public float timeLeft =3f;
-    
+    public Player player;
 
 
     // Update is called once per frame
@@ -21,9 +20,12 @@ public class PlatformCreator : MonoBehaviour
         timeLeft -= Time.deltaTime; // Set the timer
         timeLeft = Mathf.Clamp(timeLeft, 0, 3);
         timeText.text = (timeLeft).ToString("0");
+
         
         if(timeLeft<=0)
         {
+            player.anim.gameObject.GetComponent<Animator>().enabled = true;
+            player.anim.Play("PlayerMove");
             timeText.enabled = false;
             if (lastCreatedPlatform.transform.position.x < referencePoint.position.x)
             {

@@ -12,7 +12,12 @@ public class UIController : MonoBehaviour
     float roundedDistance;
     [SerializeField] Text weapons;
     [SerializeField] GameObject reloadScenePanel;
+    [SerializeField] GameObject winScenePanel;
 
+    [SerializeField] Text distanceTravelledWin;
+    [SerializeField] Text weaponsTextWin;
+    [SerializeField] Text livesWin;
+    [SerializeField] Platform platform;
 
     public void ShowGameOverScreen()
     {
@@ -39,6 +44,14 @@ public class UIController : MonoBehaviour
 
     public void ShowWinScreen()
     {
-
+        winScenePanel.SetActive(true);
+        livesWin.text = player.life.ToString();
+        distanceTravelledWin.text = player.distanceTravelled.ToString();
+        Time.timeScale = 0;
+        roundedDistance = Mathf.Ceil(player.distanceTravelled);
+        distanceTravelledWin.text = "" + roundedDistance;
+        weaponsTextWin.text = player.power.ToString();
+        
     }
 }
+

@@ -20,17 +20,19 @@ public class Player : MonoBehaviour
     private bool powerBool;
     private float powerMin = 0;
     private float lifeMin = 0;
-    [SerializeField] float life ;
+    public float life ;
     bool jump;
     bool isOnTheGround;
     public UIController uiController;
     public float distanceTravelled;
     public PlatformCreator platformCreator;
-   
+    public Animator anim;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         powerBool = true;
+        anim.gameObject.GetComponent<Animator>().enabled = false;
     }
 
 
@@ -39,6 +41,7 @@ public class Player : MonoBehaviour
         distanceTravelled += Time.deltaTime;
         CheckPowerAndLives();
         CheckForInput();
+        PlayerHasWon();
     }
     
 
