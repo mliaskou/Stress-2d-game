@@ -18,7 +18,7 @@ public class UIController : MonoBehaviour
     [SerializeField] Text weaponsTextWin;
     [SerializeField] Text livesWin;
     [SerializeField] Platform platform;
-
+    [SerializeField] GameObject panelBeforeTheNextScene;
     public void ShowGameOverScreen()
     {
         GameOverScreen.SetActive(true);
@@ -52,6 +52,16 @@ public class UIController : MonoBehaviour
         distanceTravelledWin.text = "" + roundedDistance;
         weaponsTextWin.text = player.power.ToString();
         
+    }
+
+    public void PanelBeforeTheNextScene()
+    {
+        panelBeforeTheNextScene.SetActive(true);
+    }
+
+    public void LoadSecondScene()
+    {
+        SceneManager.LoadScene("SecondScene");
     }
 }
 
