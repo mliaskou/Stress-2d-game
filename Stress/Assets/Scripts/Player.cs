@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] float force = 0.5f;
     [SerializeField] Transform raycastOrigin;
     [SerializeField] Transform powerUpOrigin;
-    public float power;
+    public int power;
     public GameObject powerUp;
 
      GameObject instantiatedPower;
@@ -18,9 +19,9 @@ public class Player : MonoBehaviour
     [SerializeField] Text powerText;
     [SerializeField] Text lifeText;
     private bool powerBool;
-    private float powerMin = 0;
-    private float lifeMin = 0;
-    public float life ;
+    private int powerMin = 0;
+    private int lifeMin = 0;
+    public int life ;
     bool jump;
     bool isOnTheGround;
     public UIController uiController;
@@ -28,6 +29,8 @@ public class Player : MonoBehaviour
     public PlatformCreator platformCreator;
     public Animator anim;
 
+    public StoreManager storeManager;
+    
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -42,6 +45,8 @@ public class Player : MonoBehaviour
         CheckPowerAndLives();
         CheckForInput();
         PlayerHasWon();
+        storeManager.setPlayerLives(life);
+        storeManager.setPlayerPower(power);
     }
     
 
@@ -49,6 +54,7 @@ public class Player : MonoBehaviour
     {
         CheckThePlayerIsOnTheGround();
         CheckForGrounded();
+        
     }
     void CheckForGrounded()
     {

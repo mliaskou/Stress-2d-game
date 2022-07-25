@@ -212,9 +212,10 @@ GameObject:
   - component: {fileID: 8534572459398611248}
   - component: {fileID: 207650271037703445}
   - component: {fileID: 5177383040226377082}
+  - component: {fileID: 7620456292970471274}
   m_Layer: 0
   m_Name: Feeling underestimated
-  m_TagString: PowerUp
+  m_TagString: Thought
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -332,3 +333,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 5
+--- !u!114 &7620456292970471274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8534572459398611262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71d02b67300252d4e8cf02cba4dfc461, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

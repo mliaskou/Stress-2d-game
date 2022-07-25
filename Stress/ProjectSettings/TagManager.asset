@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - PowerUp
   - GameOver
+  - Platform
+  - Thought
   layers:
   - Default
   - TransparentFX
