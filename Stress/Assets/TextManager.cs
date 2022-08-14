@@ -11,29 +11,33 @@ public class TextManager : MonoBehaviour
     private int powerMin = 0;
     private int lifeMin = 0;
 
-    [SerializeField] Text powerText;
+    public Text powerText;
     [SerializeField] Text lifeText;
-
+    [SerializeField] UIControllerScene2 uiControllerScene2;
+    [SerializeField] StoreManager storeManager;
+    [SerializeField] Text timeText;
+    public float timeLeft = 30f;
 
     void Start()
     {
-        powerText.text = StoreManager.instance.getPlayerPower().ToString();
-        lifeText.text = StoreManager.instance.getPlayerLives().ToString();
+        powerText.text = storeManager.getPlayerPower().ToString();
+        lifeText.text = storeManager.getPlayerLives().ToString();
     }
 
     private void Update()
     {
 
-        if (life <= lifeMin)
-        {
-            life = lifeMin;
-            lifeText.text = life.ToString();
-        }
 
-        if (power <= powerMin)
+        timeLeft -= Time.deltaTime; // Set the timer
+        timeLeft = Mathf.Clamp(timeLeft, 0, 30);
+        timeText.text = (timeLeft).ToString("0");
+
+        CheckLivesPower();
+
+        if (life > 0 && timeLeft <= 0)
         {
-            power = powerMin;
-            powerText.text = power.ToString();
+
+            uiControllerScene2.ShowWinScreen();
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -56,18 +60,48 @@ public class TextManager : MonoBehaviour
             lifeText.text = life.ToString();
 
             StoreManager.instance.setPlayerLives(life);
-           
+
         }
 
         if (collision.gameObject.CompareTag("PowerUp"))
         {
             power++;
             powerText.text = power.ToString();
-
             StoreManager.instance.setPlayerPower(power);
         }
 
+        if (life <= 0)
+        {
+            uiControllerScene2.ShowGameOverScreen();
 
-       
+
+            if (life <= 0 && timeLeft <= 0)
+            {
+                uiControllerScene2.ShowGameOverScreen();
+
+            }
+
+
+
+        }
+   
+    }
+
+    public void CheckLivesPower()
+    {
+        if (life < lifeMin)
+        {
+            life = lifeMin;
+
+        }
+
+        if (power < powerMin)
+        {
+            power = powerMin;
+        }
+
+        lifeText.text = life.ToString();
+        powerText.text = power.ToString();
+        StoreManager.instance.setPlayerPower(power);
     }
 }

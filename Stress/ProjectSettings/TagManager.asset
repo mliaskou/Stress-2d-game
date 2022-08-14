@@ -11,6 +11,7 @@ TagManager:
   - GameOver
   - Platform
   - Thought
+  - Win
   layers:
   - Default
   - TransparentFX

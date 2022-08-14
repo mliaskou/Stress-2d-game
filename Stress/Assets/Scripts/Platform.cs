@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
-    [SerializeField] float speed = 2f;
+    public float speed = 2f;
     [SerializeField] float leftLimit = -10f;
     
-
     void Update()
     {
-      
+       
             transform.position += new Vector3(-speed, 0, 0) * Time.deltaTime;
-        
+
             if (transform.position.x < leftLimit)
             {
 
                 Destroy(gameObject);
             }
- 
+
+      
     }
 }

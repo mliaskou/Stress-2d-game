@@ -25,7 +25,6 @@ public class PlatformCreator : MonoBehaviour
         if(timeLeft<=0)
         {
             player.anim.gameObject.GetComponent<Animator>().enabled = true;
-            player.anim.Play("PlayerMove");
             timeText.enabled = false;
             if (lastCreatedPlatform.transform.position.x < referencePoint.position.x)
             {

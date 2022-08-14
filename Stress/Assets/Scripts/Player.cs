@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
+    
     Rigidbody2D rb;
     [SerializeField] float force = 0.5f;
     [SerializeField] Transform raycastOrigin;
@@ -26,11 +26,9 @@ public class Player : MonoBehaviour
     bool isOnTheGround;
     public UIController uiController;
     public float distanceTravelled;
-    public PlatformCreator platformCreator;
     public Animator anim;
-
     public StoreManager storeManager;
-    
+    public bool hasWon = false;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -45,8 +43,8 @@ public class Player : MonoBehaviour
         CheckPowerAndLives();
         CheckForInput();
         PlayerHasWon();
-        storeManager.setPlayerLives(life);
-        storeManager.setPlayerPower(power);
+        StoreManager.instance.setPlayerLives(life);
+        StoreManager.instance.setPlayerPower(power);
     }
     
 
@@ -58,7 +56,7 @@ public class Player : MonoBehaviour
     }
     void CheckForGrounded()
     {
-        RaycastHit2D hit = Physics2D.Raycast(raycastOrigin.position, Vector2.down);
+        RaycastHit2D hit = Physics2D.Raycast(raycastOrigin.position, new Vector2(0, 4));
         if (hit.collider != null)
         {
             if (hit.distance < 0.1f)
@@ -100,9 +98,11 @@ public class Player : MonoBehaviour
 
         if(other.CompareTag("GameOver"))
         {
-
+            this.gameObject.SetActive(false);
             uiController.ShowGameOverScreen();
         }
+
+        
     }
 
 
@@ -177,9 +177,11 @@ public class Player : MonoBehaviour
 
     public void PlayerHasWon()
     {
-        if(life > 0 && distanceTravelled >= 80)
+        if(life > 0 && distanceTravelled >= 20)
         {
+            hasWon = true;
             uiController.ShowWinScreen();
+            
         }
     }
 }

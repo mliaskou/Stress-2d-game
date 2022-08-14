@@ -7,8 +7,8 @@ public class SpawnManager : MonoBehaviour
     public GameObject[] thoughtsPrefabs;
     private float startDelay = 1;
     private float spawnInterval = 2f;
-    private float spawnRangeX = 10;
-    private float spawnRangeY = 2;
+    private float spawnRangeX = 8;
+    
     private GameObject go;
     // Start is called before the first frame update
     void Start()
@@ -20,7 +20,7 @@ public class SpawnManager : MonoBehaviour
     {
         int thoughtsIndex = Random.Range(0, thoughtsPrefabs.Length);
         //Vector2 spawnPos = new Vector2(Random.Range(-13, 13), 8);
-       go = Instantiate(thoughtsPrefabs[thoughtsIndex], new Vector2(Random.Range(-spawnRangeX, spawnRangeX),Random.Range(-spawnRangeY, spawnRangeY)), Quaternion.identity);
+       go = Instantiate(thoughtsPrefabs[thoughtsIndex], new Vector2(Random.Range(-spawnRangeX, spawnRangeX), 1), Quaternion.identity);
         if(go.transform.position.y < -4)
         {
             Destroy(go);

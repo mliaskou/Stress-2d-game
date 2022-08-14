@@ -47,7 +47,6 @@ public class UIController : MonoBehaviour
         winScenePanel.SetActive(true);
         livesWin.text = player.life.ToString();
         distanceTravelledWin.text = player.distanceTravelled.ToString();
-        Time.timeScale = 0;
         roundedDistance = Mathf.Ceil(player.distanceTravelled);
         distanceTravelledWin.text = "" + roundedDistance;
         weaponsTextWin.text = player.power.ToString();
