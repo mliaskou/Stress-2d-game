@@ -10,42 +10,45 @@ public class Player : MonoBehaviour
     [SerializeField] float force = 0.5f;
     [SerializeField] Transform raycastOrigin;
     [SerializeField] Transform powerUpOrigin;
-    public int power;
-    public GameObject powerUp;
+    private int power;
+    private GameObject powerUp;
     GameObject instantiatedPower;
     private bool powerBool;
     private int powerMin = 0;
     private int lifeMin = 0;
     private UIController _uiController;
-    public int numberOfLives;
+    private int numberOfLives;
     bool jump;
     bool isOnTheGround;
-    public float distanceTravelled;
+    private float distanceTravelled;
     public Animator anim;
-    public StoreManager storeManager;
-    public bool hasWon = false;
+    private bool hasWon = false;
 
     string gameOverTag = "GameOver";
     string powerUpTag = "PowerUp";
     string lifeTag = "Life";
     string enemyTag = "Enemy";
-    private void Start()
+
+    public IEnumerator InitializePlayer(UIController uiController)
     {
         rb = GetComponent<Rigidbody2D>();
         powerBool = true;
         anim.gameObject.GetComponent<Animator>().enabled = false;
-        _uiController = UIController.s_Instance;
+        _uiController = uiController;
+        yield return null;
     }
-
 
     private void Update()
     {
-        _uiController.SetDistanceTravelled(distanceTravelled += Time.deltaTime);
-        CheckPowerAndLives();
-        CheckForInput();
-        PlayerHasWon();
-        //StoreManager.instance.setPlayerLives(numberOfLives); //ATODO
-        //StoreManager.instance.setPlayerPower(power);//ATODO
+        if (AppManager.s_Instance._InitialisationHasCompleted)
+        {
+            _uiController.SetDistanceTravelled(distanceTravelled += Time.deltaTime);
+            CheckPowerAndLives();
+            CheckForInput();
+            PlayerHasWon();
+            //StoreManager.instance.setPlayerLives(numberOfLives); //ATODO
+            //StoreManager.instance.setPlayerPower(power);//ATODO
+        }
     }
 
 
@@ -149,7 +152,6 @@ public class Player : MonoBehaviour
         }
         numberOfLives = lives;
         _uiController.UpdateNumberOfLivesUI(numberOfLives);
-
     }
 
     private void SetNumberOfWeapons(int numberOfWeapons)

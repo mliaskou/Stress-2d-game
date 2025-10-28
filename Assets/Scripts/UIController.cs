@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using UnityEngine.UIElements;
 
 public class UIController : MonoBehaviour
 {
-    public static UIController s_Instance;
-    [SerializeField] private InformationStatusScreen _informationStatusScreen;
+    private InformationStatusScreen _informationStatusScreen;
 
     [Header("Lives-Weapons-Distance Texts")]
     [SerializeField] Text _numberOfWeaponsText;
@@ -22,18 +23,15 @@ public class UIController : MonoBehaviour
     [SerializeField] GameObject reloadScenePanel;
     [SerializeField] GameObject panelBeforeTheNextScene;
 
-    public void Awake()
-    {
-        if (s_Instance == null)
-        {
-            s_Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+    [Header("Timer")]
+    [SerializeField] float timeLeft = 3f;
+    [SerializeField] Text _timerText;
 
+    public IEnumerator InitializeUIController(InformationStatusScreen informationStatusScreen)
+    {
+        _informationStatusScreen = informationStatusScreen;
         InitializeUI();
+        yield return null;
     }
 
     private void InitializeUI()
@@ -46,7 +44,7 @@ public class UIController : MonoBehaviour
     {
         _informationStatusScreen.SetInformationStatusGameOverScreen
         ("Game Over", GetNumberOfLives().ToString(), GetNumberOfWeapons().ToString(), GetDistanceTravelledRounded()
-        , "Reload Game", ReloadScene);
+        , "Reload Game", AppManager.s_Instance.ReloadScene);
     }
 
     public void ShowWinScreen()
@@ -55,30 +53,6 @@ public class UIController : MonoBehaviour
         ("You Won!", GetNumberOfLives().ToString(), GetNumberOfWeapons().ToString(), GetDistanceTravelledRounded(),
         "Load next scene", LoadSecondScene);
     }
-
-    public void ReloadScenePanel()
-    {
-        reloadScenePanel.SetActive(true);
-    }
-    public void ReloadScene()
-    {
-        SceneManager.LoadScene("SampleScene");
-    }
-
-    public void GameQuit()
-    {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
-    }
-
-    public void PanelBeforeTheNextScene()
-    {
-        panelBeforeTheNextScene.SetActive(true);
-    }
-
     public void SetNumberOfWeapons(int power)
     {
         numberOfWeapons = power;
@@ -87,7 +61,6 @@ public class UIController : MonoBehaviour
 
     public string GetNumberOfWeapons()
     {
-        Debug.LogError("Get number of weapons");
         return $"Number of Weapons: {numberOfWeapons}";
     }
 
@@ -116,6 +89,18 @@ public class UIController : MonoBehaviour
     public void LoadSecondScene()
     {
         SceneManager.LoadScene("SecondScene");
+    }
+
+    public void SetTimeScreen()
+    {
+        timeLeft -= Time.deltaTime; // Set the timer
+        timeLeft = Mathf.Clamp(timeLeft, 0, 3);
+        _timerText.text = (timeLeft).ToString("0");
+    }
+
+    public float GetTimer()
+    {
+        return timeLeft;
     }
 }
 

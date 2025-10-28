@@ -9,23 +9,15 @@ public class PlatformCreator : MonoBehaviour
     public Transform referencePoint;
     [SerializeField] GameObject lastCreatedPlatform;
     float lastPlatformWidth;
-    [SerializeField] Text timeText;
-    public float timeLeft =3f;
     public Player player;
 
 
     // Update is called once per frame
     void Update()
     {
-        timeLeft -= Time.deltaTime; // Set the timer
-        timeLeft = Mathf.Clamp(timeLeft, 0, 3);
-        timeText.text = (timeLeft).ToString("0");
-
-        
-        if(timeLeft<=0)
+        if(AppManager.s_Instance._InitialisationHasCompleted)
         {
             player.anim.gameObject.GetComponent<Animator>().enabled = true;
-            timeText.enabled = false;
             if (lastCreatedPlatform.transform.position.x < referencePoint.position.x)
             {
                 float spaceBetweenPlatforms = Random.Range(1, 3);
@@ -35,11 +27,6 @@ public class PlatformCreator : MonoBehaviour
                 BoxCollider2D collider = lastCreatedPlatform.GetComponent<BoxCollider2D>();
                 lastPlatformWidth = collider.bounds.size.x;
             }
-            
-
-            
-
         }
-
     }
 }

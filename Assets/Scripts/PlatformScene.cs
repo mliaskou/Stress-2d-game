@@ -10,7 +10,7 @@ public class PlatformScene : MonoBehaviour
 
     void Update()
     {
-        if(platformCreator.timeLeft <=0)
+        if(AppManager.s_Instance._InitialisationHasCompleted)
         {
             transform.position += new Vector3(-speed, 0, 0) * Time.deltaTime;
             if (transform.position.x < leftLimit)

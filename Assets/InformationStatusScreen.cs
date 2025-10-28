@@ -24,7 +24,11 @@ public class InformationStatusScreen : MonoBehaviour
         _backgroundImage.sprite = Resources.Load<Sprite>("sky");
         _informationStatusScreenButton.onClick.RemoveAllListeners();
         _informationStatusScreenButton.GetComponentInChildren<Text>().text = buttonText;
-        _informationStatusScreenButton.onClick.AddListener(buttonListener);
+        _informationStatusScreenButton.onClick.AddListener(() =>
+        {
+            buttonListener?.Invoke();
+            Reset();
+        });
         gameObject.SetActive(true);
     }
 
@@ -38,7 +42,11 @@ public class InformationStatusScreen : MonoBehaviour
         _backgroundImage.sprite = Resources.Load<Sprite>("sky");
         _informationStatusScreenButton.onClick.RemoveAllListeners();
         _informationStatusScreenButton.GetComponentInChildren<Text>().text = buttonText;
-        _informationStatusScreenButton.onClick.AddListener(buttonListener);
+        _informationStatusScreenButton.onClick.AddListener(() =>
+        {
+            buttonListener?.Invoke();
+            Reset();
+        });
         gameObject.SetActive(true);
     }
 
