@@ -78,13 +78,15 @@ public class Player : MonoBehaviour
         if (other.CompareTag(powerUpTag))
         {
             powerBool = true;
-            SetNumberOfWeapons(power++);
+            power++;
+            SetNumberOfWeapons(power);
             Destroy(other.gameObject);
         }
 
         if (other.CompareTag(lifeTag))
         {
-            SetNumberOfLives(numberOfLives++);
+            numberOfLives++;
+            SetNumberOfLives(numberOfLives);
             Destroy(other.gameObject);
         }
 
@@ -100,8 +102,8 @@ public class Player : MonoBehaviour
     {
         if (collision.transform.CompareTag(enemyTag))
         {
-            SetNumberOfWeapons(power - 1);
-            SetNumberOfLives(numberOfLives - 1);
+            numberOfLives--;
+            SetNumberOfLives(numberOfLives);
         }
     }
 
@@ -140,23 +142,24 @@ public class Player : MonoBehaviour
 
     private void SetNumberOfLives(int lives)
     {
-        if (numberOfLives <= lifeMin)
+        if (lives <= lifeMin)
         {
             numberOfLives = lifeMin;
             _uiController.ShowGameOverScreen();
         }
         numberOfLives = lives;
         _uiController.UpdateNumberOfLivesUI(numberOfLives);
+
     }
 
-    private void SetNumberOfWeapons(int weapons)
+    private void SetNumberOfWeapons(int numberOfWeapons)
     {
-        if (power <= powerMin)
+        if (numberOfWeapons <= powerMin)
         {
             powerBool = false;
             power = powerMin;
         }
-        power = weapons;
+        power = numberOfWeapons;
         _uiController.SetNumberOfWeapons(power);
     }
     public void PlayerHasWon()

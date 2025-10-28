@@ -7,12 +7,12 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
     public static UIController s_Instance;
-    [SerializeField] private GameObject GameOverScreen;
+    [SerializeField] private InformationStatusScreen _informationStatusScreen;
 
     [Header("Lives-Weapons-Distance Texts")]
-    [SerializeField] Text weaponsText;
-    [SerializeField] Text livesText;
-    [SerializeField] Text distanceTravelledText;
+    [SerializeField] Text _numberOfWeaponsText;
+    [SerializeField] Text _numberOfLivesText;
+    [SerializeField] Text _distanceTravelledText;
 
     private int numberOflives;
     private int numberOfWeapons;
@@ -20,16 +20,9 @@ public class UIController : MonoBehaviour
 
     [Header("Reload Panel")]
     [SerializeField] GameObject reloadScenePanel;
-    [Header("Win Panel")]
-    [SerializeField] GameObject winScenePanel;
-    [SerializeField] Text distanceTravelledWin;
-    [SerializeField] Text weaponsTextWin;
-    [SerializeField] Text livesWin;
-
     [SerializeField] GameObject panelBeforeTheNextScene;
 
-
-    void Awake()
+    public void Awake()
     {
         if (s_Instance == null)
         {
@@ -39,12 +32,28 @@ public class UIController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        InitializeUI();
+    }
+
+    private void InitializeUI()
+    {
+        _numberOfLivesText.text = GetNumberOfLives();
+        _numberOfWeaponsText.text = GetNumberOfWeapons();
+        _distanceTravelledText.text = GetDistanceTravelledRounded();
     }
     public void ShowGameOverScreen()
     {
-        GameOverScreen.SetActive(true);
-        distanceTravelledText.text = GetDistanceTravelledRounded();
-        weaponsText.text = GetNumberOfWeapons().ToString();
+        _informationStatusScreen.SetInformationStatusGameOverScreen
+        ("Game Over", GetNumberOfLives().ToString(), GetNumberOfWeapons().ToString(), GetDistanceTravelledRounded()
+        , "Reload Game", ReloadScene);
+    }
+
+    public void ShowWinScreen()
+    {
+        _informationStatusScreen.SetInformationStatusWinScreen
+        ("You Won!", GetNumberOfLives().ToString(), GetNumberOfWeapons().ToString(), GetDistanceTravelledRounded(),
+        "Load next scene", LoadSecondScene);
     }
 
     public void ReloadScenePanel()
@@ -65,14 +74,6 @@ public class UIController : MonoBehaviour
 #endif
     }
 
-    public void ShowWinScreen()
-    {
-        winScenePanel.SetActive(true);
-        livesWin.text = GetNumberOfLives().ToString();
-        distanceTravelledWin.text = GetDistanceTravelledRounded();
-        weaponsTextWin.text = GetNumberOfWeapons().ToString();
-    }
-
     public void PanelBeforeTheNextScene()
     {
         panelBeforeTheNextScene.SetActive(true);
@@ -80,40 +81,36 @@ public class UIController : MonoBehaviour
 
     public void SetNumberOfWeapons(int power)
     {
-
         numberOfWeapons = power;
-        weaponsText.text = $"Number of weapons: {numberOfWeapons.ToString()}";
+        _numberOfWeaponsText.text = $"Number of weapons: {numberOfWeapons.ToString()}";
     }
 
-    public int GetNumberOfWeapons()
+    public string GetNumberOfWeapons()
     {
-        return numberOfWeapons;
+        Debug.LogError("Get number of weapons");
+        return $"Number of Weapons: {numberOfWeapons}";
     }
 
     public void UpdateNumberOfLivesUI(int lives)
     {
-        if (lives <= 0)
-        {
-            lives = 0;
-        }
         numberOflives = lives;
-        livesText.text = $"Number of lives: {numberOflives.ToString()}";
+        _numberOfLivesText.text = $"Number of lives: {numberOflives.ToString()}";
     }
 
-    public int GetNumberOfLives()
+    public string GetNumberOfLives()
     {
-        return numberOflives;
+        return $"Number of lives: {numberOflives}";
     }
 
     public void SetDistanceTravelled(float distance)
     {
         distanceTravelled = distance;
-        distanceTravelledText.text = $"Distance travelled: {(int)Mathf.Ceil(distanceTravelled)}";
+        _distanceTravelledText.text = $"Distance travelled: {(int)Mathf.Ceil(distanceTravelled)}";
     }
 
     public string GetDistanceTravelledRounded()
     {
-        return $"Distance Travelled: {(int)Mathf.Ceil(distanceTravelled)} meters";
+        return $"Distance Travelled: {(int)Mathf.Ceil(distanceTravelled)}";
     }
 
     public void LoadSecondScene()

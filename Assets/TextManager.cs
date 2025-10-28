@@ -36,7 +36,6 @@ public class TextManager : MonoBehaviour
 
         if (life > 0 && timeLeft <= 0)
         {
-
             uiControllerScene2.ShowWinScreen();
         }
     }
