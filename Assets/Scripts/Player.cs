@@ -6,54 +6,55 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    
     Rigidbody2D rb;
     [SerializeField] float force = 0.5f;
     [SerializeField] Transform raycastOrigin;
     [SerializeField] Transform powerUpOrigin;
     public int power;
     public GameObject powerUp;
-
-     GameObject instantiatedPower;
-    [SerializeField] Weapon weaponScript;
-    [SerializeField] Text powerText;
-    [SerializeField] Text lifeText;
+    GameObject instantiatedPower;
     private bool powerBool;
     private int powerMin = 0;
     private int lifeMin = 0;
-    public int life ;
+    private UIController _uiController;
+    public int numberOfLives;
     bool jump;
     bool isOnTheGround;
-    public UIController uiController;
     public float distanceTravelled;
     public Animator anim;
     public StoreManager storeManager;
     public bool hasWon = false;
+
+    string gameOverTag = "GameOver";
+    string powerUpTag = "PowerUp";
+    string lifeTag = "Life";
+    string enemyTag = "Enemy";
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         powerBool = true;
         anim.gameObject.GetComponent<Animator>().enabled = false;
+        _uiController = UIController.s_Instance;
     }
 
 
     private void Update()
     {
-        distanceTravelled += Time.deltaTime;
+        _uiController.SetDistanceTravelled(distanceTravelled += Time.deltaTime);
         CheckPowerAndLives();
         CheckForInput();
         PlayerHasWon();
-        StoreManager.instance.setPlayerLives(life);
-        StoreManager.instance.setPlayerPower(power);
+        //StoreManager.instance.setPlayerLives(numberOfLives); //ATODO
+        //StoreManager.instance.setPlayerPower(power);//ATODO
     }
-    
 
-     private void FixedUpdate()
+
+    private void FixedUpdate()
     {
         CheckThePlayerIsOnTheGround();
         CheckForGrounded();
-        
     }
+
     void CheckForGrounded()
     {
         RaycastHit2D hit = Physics2D.Raycast(raycastOrigin.position, new Vector2(0, 4));
@@ -62,75 +63,53 @@ public class Player : MonoBehaviour
             if (hit.distance < 0.1f)
             {
                 isOnTheGround = true;
-
             }
             else
             {
                 isOnTheGround = false;
-
             }
-            Debug.Log(hit.transform.name);
-            Debug.DrawRay(raycastOrigin.position, Vector2.down, Color.green);
-
-
+            //Debug.Log(hit.transform.name);
+            //Debug.DrawRay(raycastOrigin.position, Vector2.down, Color.green);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("PowerUp"))
+        if (other.CompareTag(powerUpTag))
         {
-            power++;
             powerBool = true;
-            powerText.text = power.ToString();
+            SetNumberOfWeapons(power++);
             Destroy(other.gameObject);
-
         }
 
-        if(other.CompareTag("Life"))
+        if (other.CompareTag(lifeTag))
         {
-
-            life++;
-            lifeText.text = life.ToString();
+            SetNumberOfLives(numberOfLives++);
             Destroy(other.gameObject);
-
         }
 
-        if(other.CompareTag("GameOver"))
+        if (other.CompareTag(gameOverTag))
         {
-            this.gameObject.SetActive(false);
-            uiController.ShowGameOverScreen();
+            gameObject.SetActive(false);
+            _uiController.ShowGameOverScreen();
         }
-
-        
     }
 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.CompareTag("Enemy"))
+        if (collision.transform.CompareTag(enemyTag))
         {
-            power--;
-            powerText.text = power.ToString();
-            life--;
-            lifeText.text = life.ToString();
-            //Destroy(collision.gameObject);
-           
-
-
-            if (life <= 0)
-            {
-                uiController.ShowGameOverScreen();
-            }
-
+            SetNumberOfWeapons(power - 1);
+            SetNumberOfLives(numberOfLives - 1);
         }
     }
 
     void CheckForInput()
     {
-        if(isOnTheGround == true)
+        if (isOnTheGround == true)
         {
-            if(Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 jump = true;
             }
@@ -141,8 +120,8 @@ public class Player : MonoBehaviour
     {
         if (jump == true)
         {
-                jump = false;
-                rb.AddForce(new Vector2(0, force), ForceMode2D.Impulse);
+            jump = false;
+            rb.AddForce(new Vector2(0, force), ForceMode2D.Impulse);
         }
     }
 
@@ -153,35 +132,39 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 instantiatedPower = Instantiate(powerUp, powerUpOrigin.transform.position, Quaternion.identity);
-
-                power--;
-                //powerText.text = power.ToString();
-                
+                _uiController.SetNumberOfWeapons(power--);
             }
         }
+    }
 
+
+    private void SetNumberOfLives(int lives)
+    {
+        if (numberOfLives <= lifeMin)
+        {
+            numberOfLives = lifeMin;
+            _uiController.ShowGameOverScreen();
+        }
+        numberOfLives = lives;
+        _uiController.UpdateNumberOfLivesUI(numberOfLives);
+    }
+
+    private void SetNumberOfWeapons(int weapons)
+    {
         if (power <= powerMin)
         {
             powerBool = false;
             power = powerMin;
         }
-
-        if (life < lifeMin)
-        {
-            life = lifeMin;
-        }
-        powerText.text = power.ToString();
-        lifeText.text = life.ToString();
-
+        power = weapons;
+        _uiController.SetNumberOfWeapons(power);
     }
-
     public void PlayerHasWon()
     {
-        if(life > 0 && distanceTravelled >= 20)
+        if (numberOfLives > 0 && distanceTravelled >= 20)
         {
             hasWon = true;
-            uiController.ShowWinScreen();
-            
+            _uiController.ShowWinScreen();
         }
     }
 }
