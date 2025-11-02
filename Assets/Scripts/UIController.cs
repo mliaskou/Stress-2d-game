@@ -30,6 +30,8 @@ public class UIController : MonoBehaviour
     public IEnumerator InitializeUIController(InformationStatusScreen informationStatusScreen)
     {
         _informationStatusScreen = informationStatusScreen;
+        _informationStatusScreen.transform.SetParent(transform,false);
+        _informationStatusScreen.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         InitializeUI();
         yield return null;
     }
@@ -91,11 +93,21 @@ public class UIController : MonoBehaviour
         SceneManager.LoadScene("SecondScene");
     }
 
-    public void SetTimeScreen()
+    public void SetTimeScreen(Action onTimeEnd)
     {
-        timeLeft -= Time.deltaTime; // Set the timer
-        timeLeft = Mathf.Clamp(timeLeft, 0, 3);
-        _timerText.text = (timeLeft).ToString("0");
+        Debug.Log("SetTimeScreen");
+        if (timeLeft > 0)
+        {
+            
+            timeLeft -= Time.deltaTime;
+            _timerText.text = (timeLeft).ToString("0");
+            
+            if (timeLeft <= 0)
+            {
+                _timerText.gameObject.SetActive(false);
+                onTimeEnd?.Invoke();
+            }
+        }
     }
 
     public float GetTimer()

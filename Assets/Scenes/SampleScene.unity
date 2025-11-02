@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 1256884097}
+  _InitialisationHasCompleted: 0
 --- !u!4 &32429968
 Transform:
   m_ObjectHideFlags: 0
@@ -420,8 +421,6 @@ MonoBehaviour:
   - {fileID: 8516922288704030404, guid: 8dd5b0b1567e1d34bb5a180372e27ed9, type: 3}
   referencePoint: {fileID: 615068290}
   lastCreatedPlatform: {fileID: 705474028}
-  timeText: {fileID: 0}
-  timeLeft: 3
   player: {fileID: 1256884097}
 --- !u!61 &615068288
 BoxCollider2D:

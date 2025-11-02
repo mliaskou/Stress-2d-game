@@ -16,6 +16,7 @@ public class AppManager : MonoBehaviour
     [Header("Referencies")]
     [SerializeField] Player _player;
     public bool _InitialisationHasCompleted;
+    private bool _setTimerToStart;
     IEnumerator Start()
     {
         if (s_Instance == null)
@@ -25,9 +26,21 @@ public class AppManager : MonoBehaviour
         yield return InitializeInformationStatusScreen();
         yield return InitializeUI();
         yield return InitializePlayer();
+        _setTimerToStart = true;
+    }
 
-        _InitialisationHasCompleted = true;
-        _uiController.SetTimeScreen();
+    private void Update()
+    {
+        if(_setTimerToStart)
+        {
+           _uiController.SetTimeScreen(
+                () =>
+                {
+                    _InitialisationHasCompleted = true;
+                }
+            );
+
+        }
     }
 
     private IEnumerator InitializeInformationStatusScreen()
@@ -36,7 +49,6 @@ public class AppManager : MonoBehaviour
           (gameObjectAsyncOperationHandle) =>
           {
               GameObject informationScreen = Instantiate((GameObject)gameObjectAsyncOperationHandle.Result);
-
               _informationStatusScreen = informationScreen.GetComponent<InformationStatusScreen>();
           });
     }
@@ -77,6 +89,11 @@ public class AppManager : MonoBehaviour
     public void PanelBeforeTheNextScene()
     {
         //panelBeforeTheNextScene.SetActive(true);
+    }
+
+    public void SetInitialisationHasCompleted(bool status)
+    {
+        _InitialisationHasCompleted = status;
     }
 
 }

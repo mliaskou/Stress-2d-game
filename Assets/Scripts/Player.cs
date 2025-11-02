@@ -96,6 +96,8 @@ public class Player : MonoBehaviour
         if (other.CompareTag(gameOverTag))
         {
             gameObject.SetActive(false);
+            Debug.LogError("Game Over");
+            AppManager.s_Instance.SetInitialisationHasCompleted(false);
             _uiController.ShowGameOverScreen();
         }
     }
@@ -141,7 +143,6 @@ public class Player : MonoBehaviour
             }
         }
     }
-
 
     private void SetNumberOfLives(int lives)
     {
