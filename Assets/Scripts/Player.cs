@@ -1,7 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -17,7 +14,7 @@ public class Player : MonoBehaviour
     private int powerMin = 0;
     private int lifeMin = 0;
     private UIController _uiController;
-    private int numberOfLives;
+    private int numberOfLives =1;
     bool jump;
     bool isOnTheGround;
     private float distanceTravelled;
@@ -35,6 +32,7 @@ public class Player : MonoBehaviour
         powerBool = true;
         anim.gameObject.GetComponent<Animator>().enabled = false;
         _uiController = uiController;
+        SetNumberOfLives(numberOfLives);
         yield return null;
     }
 

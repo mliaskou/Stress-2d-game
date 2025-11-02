@@ -26,6 +26,10 @@ public class UIController : MonoBehaviour
     [Header("Timer")]
     [SerializeField] float timeLeft = 3f;
     [SerializeField] Text _timerText;
+    [Header("String Tags")]
+    [SerializeField] string _numberOfWeaponsTextTag = "Number of Weapons: ";
+    [SerializeField] string _numberOfLivesTextTag = "Number of Lives: ";
+    [SerializeField] string _distanceTravelledTextTag = "Distance Travelled: ";
 
     public IEnumerator InitializeUIController(InformationStatusScreen informationStatusScreen)
     {
@@ -58,34 +62,34 @@ public class UIController : MonoBehaviour
     public void SetNumberOfWeapons(int power)
     {
         numberOfWeapons = power;
-        _numberOfWeaponsText.text = $"Number of weapons: {numberOfWeapons.ToString()}";
+        _numberOfWeaponsText.text = $"{_numberOfWeaponsTextTag} {numberOfWeapons.ToString()}";
     }
 
     public string GetNumberOfWeapons()
     {
-        return $"Number of Weapons: {numberOfWeapons}";
+        return $"{_numberOfWeaponsTextTag}{numberOfWeapons}";
     }
 
     public void UpdateNumberOfLivesUI(int lives)
     {
         numberOflives = lives;
-        _numberOfLivesText.text = $"Number of lives: {numberOflives.ToString()}";
+        _numberOfLivesText.text = $"{_numberOfLivesTextTag}{numberOflives.ToString()}";
     }
 
     public string GetNumberOfLives()
     {
-        return $"Number of lives: {numberOflives}";
+        return $"{_numberOfLivesTextTag}  {numberOflives}";
     }
 
     public void SetDistanceTravelled(float distance)
     {
         distanceTravelled = distance;
-        _distanceTravelledText.text = $"Distance travelled: {(int)Mathf.Ceil(distanceTravelled)}";
+        _distanceTravelledText.text = $"{_distanceTravelledTextTag}{(int)Mathf.Ceil(distanceTravelled)}";
     }
 
     public string GetDistanceTravelledRounded()
     {
-        return $"Distance Travelled: {(int)Mathf.Ceil(distanceTravelled)}";
+        return $"{_distanceTravelledTextTag}{(int)Mathf.Ceil(distanceTravelled)}";
     }
 
     public void LoadSecondScene()
