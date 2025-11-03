@@ -7,19 +7,20 @@ public class Player : MonoBehaviour
     [SerializeField] float force = 0.5f;
     [SerializeField] Transform raycastOrigin;
     [SerializeField] Transform powerUpOrigin;
-    private int power;
-    private GameObject powerUp;
+    private int _numberOfWeapons;
+    [SerializeField] private GameObject powerUp;
     GameObject instantiatedPower;
     private bool powerBool;
     private int powerMin = 0;
     private int lifeMin = 0;
     private UIController _uiController;
-    private int numberOfLives =1;
+    private int numberOfLives = 0;
     bool jump;
     bool isOnTheGround;
     private float distanceTravelled;
     public Animator anim;
     private bool hasWon = false;
+
 
     string gameOverTag = "GameOver";
     string powerUpTag = "PowerUp";
@@ -28,11 +29,15 @@ public class Player : MonoBehaviour
 
     public IEnumerator InitializePlayer(UIController uiController)
     {
+        yield return AddressablesLoader.LoadAddressablesAsync("PowerUp", (gameObjectAsyncOperationHandle) =>
+        {
+            powerUp = (GameObject)gameObjectAsyncOperationHandle.Result;
+        });
         rb = GetComponent<Rigidbody2D>();
         powerBool = true;
         anim.gameObject.GetComponent<Animator>().enabled = false;
         _uiController = uiController;
-        SetNumberOfLives(numberOfLives);
+        IncreaseNumberOfLives();
         yield return null;
     }
 
@@ -79,15 +84,13 @@ public class Player : MonoBehaviour
         if (other.CompareTag(powerUpTag))
         {
             powerBool = true;
-            power++;
-            SetNumberOfWeapons(power);
+            IncreaseNumberOfWeapons();
             Destroy(other.gameObject);
         }
 
         if (other.CompareTag(lifeTag))
         {
-            numberOfLives++;
-            SetNumberOfLives(numberOfLives);
+            IncreaseNumberOfLives();
             Destroy(other.gameObject);
         }
 
@@ -105,8 +108,7 @@ public class Player : MonoBehaviour
     {
         if (collision.transform.CompareTag(enemyTag))
         {
-            numberOfLives--;
-            SetNumberOfLives(numberOfLives);
+            DecreaseNumberOfLives();
         }
     }
 
@@ -132,40 +134,55 @@ public class Player : MonoBehaviour
 
     void CheckPowerAndLives()
     {
-        if (powerBool == true)
+        if (powerBool)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                instantiatedPower = Instantiate(powerUp, powerUpOrigin.transform.position, Quaternion.identity);
-                _uiController.SetNumberOfWeapons(power--);
+                if (_numberOfWeapons >= 1)
+                {
+                    instantiatedPower = Instantiate(powerUp, powerUpOrigin.transform.position, Quaternion.identity);
+                    DecreaseNumberOfWeapons();
+                }
             }
         }
     }
 
-    private void SetNumberOfLives(int lives)
+    private void IncreaseNumberOfLives()
     {
-        if (lives <= lifeMin)
+        numberOfLives++;
+        _uiController.UpdateNumberOfLivesUI(numberOfLives);
+    }
+
+    private void DecreaseNumberOfLives()
+    {
+        numberOfLives--;
+        if (numberOfLives <= lifeMin)
         {
             numberOfLives = lifeMin;
             _uiController.ShowGameOverScreen();
         }
-        numberOfLives = lives;
         _uiController.UpdateNumberOfLivesUI(numberOfLives);
     }
 
-    private void SetNumberOfWeapons(int numberOfWeapons)
+    private void IncreaseNumberOfWeapons()
     {
-        if (numberOfWeapons <= powerMin)
+        _numberOfWeapons++;
+        _uiController.SetNumberOfWeapons(_numberOfWeapons);
+    }
+
+    private void DecreaseNumberOfWeapons()
+    {
+        _numberOfWeapons--;
+        if (_numberOfWeapons <= powerMin)
         {
             powerBool = false;
-            power = powerMin;
+            _numberOfWeapons = powerMin;
         }
-        power = numberOfWeapons;
-        _uiController.SetNumberOfWeapons(power);
+        _uiController.SetNumberOfWeapons(_numberOfWeapons);
     }
     public void PlayerHasWon()
     {
-        if (numberOfLives > 0 && distanceTravelled >= 20)
+        if (numberOfLives > 0 && distanceTravelled >= 100)
         {
             hasWon = true;
             _uiController.ShowWinScreen();

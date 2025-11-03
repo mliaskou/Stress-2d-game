@@ -15,6 +15,7 @@ public class AppManager : MonoBehaviour
 
     [Header("Referencies")]
     [SerializeField] Player _player;
+    public Player _Player { get => _player; }
     public bool _InitialisationHasCompleted;
     private bool _setTimerToStart;
     IEnumerator Start()
@@ -31,14 +32,14 @@ public class AppManager : MonoBehaviour
 
     private void Update()
     {
-        if(_setTimerToStart)
+        if (_setTimerToStart)
         {
-           _uiController.SetTimeScreen(
-                () =>
-                {
-                    _InitialisationHasCompleted = true;
-                }
-            );
+            _uiController.SetTimeScreen(
+                 () =>
+                 {
+                     _InitialisationHasCompleted = true;
+                 }
+             );
 
         }
     }
@@ -75,6 +76,11 @@ public class AppManager : MonoBehaviour
     public void ReloadScene()
     {
         SceneManager.LoadScene("SampleScene");
+    }
+
+    public void LoadSecondScene()
+    {
+        SceneManager.LoadScene("SecondScene");
     }
 
     public void GameQuit()

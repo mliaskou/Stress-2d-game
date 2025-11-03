@@ -1,10 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using UnityEngine.UIElements;
 
 public class UIController : MonoBehaviour
 {
@@ -27,14 +24,15 @@ public class UIController : MonoBehaviour
     [SerializeField] float timeLeft = 3f;
     [SerializeField] Text _timerText;
     [Header("String Tags")]
-    [SerializeField] string _numberOfWeaponsTextTag = "Number of Weapons: ";
-    [SerializeField] string _numberOfLivesTextTag = "Number of Lives: ";
-    [SerializeField] string _distanceTravelledTextTag = "Distance Travelled: ";
+    string _numberOfWeaponsTextTag = "Number of Weapons: ";
+    string _numberOfLivesTextTag = "Number of Lives: ";
+    string _distanceTravelledTextTag = "Distance Travelled: ";
 
     public IEnumerator InitializeUIController(InformationStatusScreen informationStatusScreen)
     {
+        GetComponent<Canvas>().worldCamera = Camera.main;
         _informationStatusScreen = informationStatusScreen;
-        _informationStatusScreen.transform.SetParent(transform,false);
+        _informationStatusScreen.transform.SetParent(transform, false);
         _informationStatusScreen.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         InitializeUI();
         yield return null;
@@ -57,7 +55,7 @@ public class UIController : MonoBehaviour
     {
         _informationStatusScreen.SetInformationStatusWinScreen
         ("You Won!", GetNumberOfLives().ToString(), GetNumberOfWeapons().ToString(), GetDistanceTravelledRounded(),
-        "Load next scene", LoadSecondScene);
+        "Load next scene", AppManager.s_Instance.LoadSecondScene);
     }
     public void SetNumberOfWeapons(int power)
     {
@@ -92,31 +90,21 @@ public class UIController : MonoBehaviour
         return $"{_distanceTravelledTextTag}{(int)Mathf.Ceil(distanceTravelled)}";
     }
 
-    public void LoadSecondScene()
-    {
-        SceneManager.LoadScene("SecondScene");
-    }
 
     public void SetTimeScreen(Action onTimeEnd)
     {
-        Debug.Log("SetTimeScreen");
         if (timeLeft > 0)
         {
-            
+
             timeLeft -= Time.deltaTime;
             _timerText.text = (timeLeft).ToString("0");
-            
+
             if (timeLeft <= 0)
             {
                 _timerText.gameObject.SetActive(false);
                 onTimeEnd?.Invoke();
             }
         }
-    }
-
-    public float GetTimer()
-    {
-        return timeLeft;
     }
 }
 
