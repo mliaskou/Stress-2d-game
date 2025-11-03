@@ -174,9 +174,9 @@ GameObject:
   - component: {fileID: 2641032418246211124}
   - component: {fileID: 127629702939062580}
   - component: {fileID: 8136756282200777221}
-  - component: {fileID: 6528807390359060684}
+  - component: {fileID: 4885467746752769252}
   m_Layer: 5
-  m_Name: InformationStatusScreen
+  m_Name: InformationStatusScreenBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -232,7 +232,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ec4881fe9b5677e4282e551a8b2d50f9, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -242,7 +242,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6528807390359060684
+--- !u!114 &4885467746752769252
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -251,7 +251,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 624343950954770836}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfa046d0607a4af45942c7ae39dfb5c0, type: 3}
+  m_Script: {fileID: 11500000, guid: c981bbc1e12bc9946820c5a8a6f3cc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _backgroundImage: {fileID: 8136756282200777221}

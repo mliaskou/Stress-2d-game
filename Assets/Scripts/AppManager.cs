@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -52,6 +50,7 @@ public class AppManager : MonoBehaviour
               GameObject informationScreen = Instantiate((GameObject)gameObjectAsyncOperationHandle.Result);
               _informationStatusScreen = informationScreen.GetComponent<InformationStatusScreen>();
           });
+          yield return _informationStatusScreen.Initialize();
     }
     private IEnumerator InitializePlayer()
     {

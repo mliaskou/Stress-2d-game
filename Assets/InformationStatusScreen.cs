@@ -13,7 +13,15 @@ public class InformationStatusScreen : MonoBehaviour
     [SerializeField] Text _numberOfWeaponsText;
     [SerializeField] Text _distanceTravelledText;
     [SerializeField] Button _informationStatusScreenButton;
+    private Sprite _gameOverBackground;
+  
 
+    public IEnumerator Initialize(){
+        yield return AddressablesLoader.LoadAddressablesAsync<Sprite>("GameOverBackground",
+        (handle)=>{
+           _gameOverBackground= (Sprite)handle.Result;
+        });
+    }
     public void SetInformationStatusWinScreen(string title, string lives, string numberOfWeapons, string distanceTravelled,
     string buttonText, UnityAction buttonListener)
     {
@@ -21,7 +29,7 @@ public class InformationStatusScreen : MonoBehaviour
         _numberofLivesText.text = lives;
         _numberOfWeaponsText.text = numberOfWeapons;
         _distanceTravelledText.text = distanceTravelled;
-        _backgroundImage.sprite = Resources.Load<Sprite>("sky");
+        _backgroundImage.sprite = null;
         _informationStatusScreenButton.onClick.RemoveAllListeners();
         _informationStatusScreenButton.GetComponentInChildren<Text>().text = buttonText;
         _informationStatusScreenButton.onClick.AddListener(() =>
@@ -39,7 +47,7 @@ public class InformationStatusScreen : MonoBehaviour
         _numberofLivesText.text = lives;
         _numberOfWeaponsText.text = numberOfWeapons;
         _distanceTravelledText.text = distanceTravelled;
-        _backgroundImage.sprite = Resources.Load<Sprite>("sky");
+        _backgroundImage.sprite = _gameOverBackground;
         _informationStatusScreenButton.onClick.RemoveAllListeners();
         _informationStatusScreenButton.GetComponentInChildren<Text>().text = buttonText;
         _informationStatusScreenButton.onClick.AddListener(() =>
